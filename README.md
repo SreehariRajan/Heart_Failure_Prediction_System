@@ -1,7 +1,7 @@
 # Heart_Failure_Prediction
 
 
-## Logistic regression
+### Logistic regression
 
 -Accuracy score: 0.7888888888888889  
 -Precision score: 0.7647058823529411  
@@ -9,7 +9,7 @@
 -Confusion Matrix: [[58  4][15 13]]  
 
 
-## Logistic regression with scaling
+### Logistic regression with scaling
 
 -Accuracy score: 0.8111111111111111  
 -Precision score: 0.7894736842105263  
@@ -17,7 +17,7 @@
 -Confusion Matrix: [[58  4][13 15]]  
 
 
-## Support vector classifier
+### Support vector classifier
 
 -SVC(C=10, gamma=0.0001)  
 -Accuracy score: 0.6777777777777778  
