@@ -6,6 +6,10 @@ import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score
 from sklearn.linear_model import LogisticRegression
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.svm import SVC 
+from sklearn.model_selection import GridSearchCV 
 
 
 data = pd.read_csv("dataset/archive/heart_failure_clinical_records_dataset.csv")
@@ -65,13 +69,24 @@ x_test_mod = add_interactions(X_test)
 # model
 
 def eval(y_test,y_pred):
-    print("Accuracy score:,Precision score:,Recall Score:,Confusion Matrix:",accuracy_score(y_test,y_pred),precision_score(y_test,y_pred),recall_score(y_test,y_pred),confusion_matrix(y_test,y_pred))
+    print("Accuracy score:",accuracy_score(y_test,y_pred))
+    print("Precision score:",precision_score(y_test,y_pred))
+    print("Recall Score:",recall_score(y_test,y_pred))
+    print("Confusion Matrix:",confusion_matrix(y_test,y_pred))
 
 # models-1( Logistic regression )
 lr_classifier = LogisticRegression(max_iter = 1000)
 lr_classifier.fit(X_train,y_train)
 
 lr_classifier_pred = lr_classifier.predict(X_test)
-y_pred = lr_classifier.predict(X_test)
+y_pred_1 = lr_classifier.predict(X_test)
 
-eval(y_test,y_pred)
+eval(y_test,y_pred_1)
+
+# with standardization
+lr_classifier_pipeline = make_pipeline(StandardScaler(),LogisticRegression())
+lr_classifier_pipeline.fit(X_train,y_train)
+
+y_pred_2 = lr_classifier_pipeline.predict(X_test)
+eval(y_test,y_pred_2)
+
