@@ -5,7 +5,7 @@
 Shape of data (299, 13)  
 RangeIndex: 299 entries, 0 to 298  
 Data columns (total 13 columns):  
- #   Column                    Non-Null Count  Dtype  
+ i   Column                    Non-Null Count  Dtype  
 ---  ------                    --------------  -----  
  0   age                       299 non-null    float64  
  1   anaemia                   299 non-null    int64  
