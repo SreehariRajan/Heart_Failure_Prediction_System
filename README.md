@@ -2,27 +2,10 @@
 
 ## EDA
 
-Shape of data (299, 13)  
-RangeIndex: 299 entries, 0 to 298  
-Data columns (total 13 columns):  
- i   Column                    Non-Null Count  Dtype  
----  ------                    --------------  -----  
- 0   age                       299 non-null    float64  
- 1   anaemia                   299 non-null    int64  
- 2   creatinine_phosphokinase  299 non-null    int64  
- 3   diabetes                  299 non-null    int64  
- 4   ejection_fraction         299 non-null    int64  
- 5   high_blood_pressure       299 non-null    int64  
- 6   platelets                 299 non-null    float64  
- 7   serum_creatinine          299 non-null    float64  
- 8   serum_sodium              299 non-null    int64  
- 9   sex                       299 non-null    int64  
- 10  smoking                   299 non-null    int64  
- 11  time                      299 non-null    int64  
- 12  DEATH_EVENT               299 non-null    int64  
-dtypes: float64(3), int64(10)  
-memory usage: 30.5 KB  
-  
+
+
+![image](https://user-images.githubusercontent.com/77159058/196044098-bb170578-431a-48b8-9ba2-966566394c09.png)
+
 No. of null values:-   
 age                         0  
 anaemia                     0  
