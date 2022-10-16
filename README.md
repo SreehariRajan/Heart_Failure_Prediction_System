@@ -63,31 +63,31 @@ Shape of the y_test (90,)
 
 ### Decision tree classifier
 
--Accuracy score: 0.7555555555555555
--Precision score: 0.625
--Recall Score: 0.5357142857142857
--Confusion Matrix: [[53  9][13 15]]
+-Accuracy score: 0.7555555555555555  
+-Precision score: 0.625  
+-Recall Score: 0.5357142857142857  
+-Confusion Matrix: [[53  9][13 15]]  
 
 
-### Random forest classifier
+### Random forest classifier  
 
--Accuracy score: 0.8666666666666667
--Precision score: 0.9
--Recall Score: 0.6428571428571429
--Confusion Matrix: [[60  2][10 18]]
-
-
-### XGBoost classifier
-
--Accuracy score: 0.8555555555555555
--Precision score: 0.8
--Recall Score: 0.7142857142857143
--Confusion Matrix: [[57  5][ 8 20]]
+-Accuracy score: 0.8666666666666667  
+-Precision score: 0.9  
+-Recall Score: 0.6428571428571429  
+-Confusion Matrix: [[60  2][10 18]]  
 
 
-### Gradient Boosting classifier
+### XGBoost classifier  
 
--Accuracy score: 0.8555555555555555
--Precision score: 0.8571428571428571
--Recall Score: 0.6428571428571429
--Confusion Matrix: [[59  3][10 18]]
+-Accuracy score: 0.8555555555555555  
+-Precision score: 0.8  
+-Recall Score: 0.7142857142857143  
+-Confusion Matrix: [[57  5][ 8 20]]  
+
+
+### Gradient Boosting classifier  
+
+-Accuracy score: 0.8555555555555555  
+-Precision score: 0.8571428571428571  
+-Recall Score: 0.6428571428571429  
+-Confusion Matrix: [[59  3][10 18]]  
