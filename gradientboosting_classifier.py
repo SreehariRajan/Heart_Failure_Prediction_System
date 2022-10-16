@@ -4,8 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score
-from sklearn.svm import SVC 
-from sklearn.model_selection import GridSearchCV 
+from sklearn.ensemble import GradientBoostingClassifier
 
 
 data = pd.read_csv("dataset/archive/heart_failure_clinical_records_dataset.csv")
@@ -69,20 +68,8 @@ def eval(y_test,y_pred):
     print("Recall Score:",recall_score(y_test,y_pred))
     print("Confusion Matrix:",confusion_matrix(y_test,y_pred))
 
+gbdt = GradientBoostingClassifier(n_estimators=200, learning_rate=0.1,max_depth=1,random_state=0)
+gbdt.fit(X_train,y_train)
 
-
-param_grid = {'C':[0.1,1,10,100,1000],
-            'gamma':[1,0.1,0.01,0.001,0.0001],
-            'kernel':['rbf']}
-grid = GridSearchCV(SVC(),param_grid,refit=True,verbose=3)
-grid.fit(X_train,y_train)
-
-# best hyper parameters
-print(grid.best_estimator_)
-
-svc = SVC(C=10,gamma=0.0001)
-svc.fit(X_train,y_train)
-y_pred_3 = svc.predict(X_test)
-
-eval(y_pred_3,y_test)
-
+pred=  gbdt.predict(X_test)
+eval(y_test,pred)

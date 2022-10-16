@@ -16,10 +16,9 @@ data = pd.read_csv("dataset/archive/heart_failure_clinical_records_dataset.csv")
 data.head()
 print("Shape of data",data.shape)
 data.info()
-print("Describing the data:-")
-data.describe()
-print("No. of null values:-")
-data.isnull().sum()
+print("Describing the data:-",data.describe())
+
+print("No. of null values:-",data.isnull().sum())
 
 # explore dataset  
 live_len = len(data["DEATH_EVENT"][data.DEATH_EVENT==0])

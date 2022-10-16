@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score
-from sklearn.svm import SVC 
-from sklearn.model_selection import GridSearchCV 
+from sklearn.ensemble import RandomForestClassifier 
+from sklearn.model_selection import RandomizedSearchCV  
 
 
 data = pd.read_csv("dataset/archive/heart_failure_clinical_records_dataset.csv")
@@ -15,6 +15,7 @@ data.info()
 print("Describing the data:-",data.describe())
 
 print("No. of null values:-",data.isnull().sum())
+
 
 # explore dataset  
 live_len = len(data["DEATH_EVENT"][data.DEATH_EVENT==0])
@@ -70,19 +71,32 @@ def eval(y_test,y_pred):
     print("Confusion Matrix:",confusion_matrix(y_test,y_pred))
 
 
+def randomized_search(params,runs=20,clf=RandomForestClassifier(random_state=2)):
+    rand_clf = RandomizedSearchCV(clf,params,n_iter=runs,cv=5,n_jobs=-1,random_state=2)
+    rand_clf.fit(X_train,y_train)
+    best_model = rand_clf.best_estimator_
+    best_score = rand_clf.best_score_
 
-param_grid = {'C':[0.1,1,10,100,1000],
-            'gamma':[1,0.1,0.01,0.001,0.0001],
-            'kernel':['rbf']}
-grid = GridSearchCV(SVC(),param_grid,refit=True,verbose=3)
-grid.fit(X_train,y_train)
+    print("Training score: {:.3f}".format(best_score))    
+    y_pred = best_model.predict(X_test)
 
-# best hyper parameters
-print(grid.best_estimator_)
+    accuracy = accuracy_score(y_test,y_pred)
 
-svc = SVC(C=10,gamma=0.0001)
-svc.fit(X_train,y_train)
-y_pred_3 = svc.predict(X_test)
+    print('Test score: {:.3f}'.format(accuracy))
 
-eval(y_pred_3,y_test)
+    return best_model
 
+print(randomized_search(params={
+                         'min_samples_leaf':[1,2,4,6,8,10,20,30],
+                          'min_impurity_decrease':[0.0, 0.01, 0.05, 0.10, 0.15, 0.2],
+                          'max_features':['auto', 0.8, 0.7, 0.6, 0.5, 0.4],
+                          'max_depth':[None,2,4,6,8,10,20], 
+                         }, clf=RandomForestClassifier(random_state=2)))
+
+rf_clf = RandomForestClassifier(max_depth=2, max_features=0.5,
+                       min_impurity_decrease=0.01, min_samples_leaf=10,
+                       random_state=2)
+rf_clf.fit(X_train,y_train)
+pred=rf_clf.predict(X_test)
+
+eval(y_test,pred)

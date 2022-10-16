@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score
-from sklearn.svm import SVC 
-from sklearn.model_selection import GridSearchCV 
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import RandomizedSearchCV  
 
 
 data = pd.read_csv("dataset/archive/heart_failure_clinical_records_dataset.csv")
@@ -70,19 +70,38 @@ def eval(y_test,y_pred):
     print("Confusion Matrix:",confusion_matrix(y_test,y_pred))
 
 
+def randomized_search(params,runs=20,clf=DecisionTreeClassifier(random_state=2)):
+    rand_clf = RandomizedSearchCV(clf,params,n_iter=runs,cv=5,n_jobs=-1,random_state=2)
+    rand_clf.fit(X_train,y_train)
+    best_model = rand_clf.best_estimator_
+    best_score = rand_clf.best_score_
 
-param_grid = {'C':[0.1,1,10,100,1000],
-            'gamma':[1,0.1,0.01,0.001,0.0001],
-            'kernel':['rbf']}
-grid = GridSearchCV(SVC(),param_grid,refit=True,verbose=3)
-grid.fit(X_train,y_train)
+    print("Training score: {:.3f}".format(best_score))    
+    y_pred = best_model.predict(X_test)
 
-# best hyper parameters
-print(grid.best_estimator_)
+    accuracy = accuracy_score(y_test,y_pred)
 
-svc = SVC(C=10,gamma=0.0001)
-svc.fit(X_train,y_train)
-y_pred_3 = svc.predict(X_test)
+    print('Test score: {:.3f}'.format(accuracy))
 
-eval(y_pred_3,y_test)
+    return best_model
 
+print(randomized_search(params={'criterion':['entropy', 'gini'],
+                              'splitter':['random', 'best'],
+                          'min_weight_fraction_leaf':[0.0, 0.0025, 0.005, 0.0075, 0.01],
+                          'min_samples_split':[2, 3, 4, 5, 6, 8, 10],
+                          'min_samples_leaf':[1, 0.01, 0.02, 0.03, 0.04],
+                          'min_impurity_decrease':[0.0, 0.0005, 0.005, 0.05, 0.10, 0.15, 0.2],
+                          'max_leaf_nodes':[10, 15, 20, 25, 30, 35, 40, 45, 50, None],
+                          'max_features':['auto', 0.95, 0.90, 0.85, 0.80, 0.75, 0.70],
+                          'max_depth':[None, 2,4,6,8],
+                          'min_weight_fraction_leaf':[0.0, 0.0025, 0.005, 0.0075, 0.01, 0.05]
+                         }))
+
+ds_clf = DecisionTreeClassifier(criterion='entropy', max_depth=4, max_features=0.75,
+                       max_leaf_nodes=25, min_impurity_decrease=0.0005,
+                       min_samples_split=5, min_weight_fraction_leaf=0.0075,
+                       random_state=2)
+ds_clf.fit(X_train,y_train)
+pred=ds_clf.predict(X_test)
+
+eval(y_test,pred)
