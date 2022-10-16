@@ -3,7 +3,10 @@
 ## EDA
 
 Imbalanced data
-![image](https://user-images.githubusercontent.com/77159058/196044530-4b6f2a9e-b7d9-4c81-a912-f0bd024d85e5.png)
+
+
+
+![image](https://user-images.githubusercontent.com/77159058/196044582-bf448d5f-f147-4ae5-8695-5ea76254021a.png)
 
 
 ![image](https://user-images.githubusercontent.com/77159058/196044156-9a70c8f9-a247-4f0a-a069-1c1b8f0caea0.png)
