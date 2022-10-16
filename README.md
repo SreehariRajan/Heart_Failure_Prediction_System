@@ -4,7 +4,7 @@
 
 
 
-![image](https://user-images.githubusercontent.com/77159058/196044098-bb170578-431a-48b8-9ba2-966566394c09.png)
+![image](https://user-images.githubusercontent.com/77159058/196044156-9a70c8f9-a247-4f0a-a069-1c1b8f0caea0.png)
 
 No. of null values:-   
 age                         0  
